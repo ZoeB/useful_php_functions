@@ -43,13 +43,13 @@ function convertUnformattedUkDateToIsoDate($date) {
 /**
  * Explode a string into an indexed array
  *
+ * @param string $whole The string to be converted into an array
  * @param string $innerDelimiter The string separating each pair's key from its value
  * @param string $outerDelimiter The string separating each full pair from its neighbours
- * @param string $whole The string to be converted into an array
  * @return array The converted array
  */
 
-function explodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $whole) {
+function explodeWithKey($whole, $innerDelimiter = ':', $outerDelimiter = ',') {
 	if (!is_string($whole) || empty($whole)) {
 		return null;
 	}
@@ -83,14 +83,14 @@ function explodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $whole) {
 /**
  * Implode an indexed array into a string
  *
+ * @param array $indexedArray The array to be converted into a string
  * @param string $innerDelimiter The string separating each pair's key from its value
  * @param string $outerDelimiter The string separating each full pair from its neighbours
- * @param array $indexedArray The array to be converted into a string
  * @param string $innerQuote What, if anything, to wrap around each value
  * @return string The converted array
  */
 
-function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $indexedArray, $innerQuote = '') {
+function implodeWithKey($indexedArray, $innerDelimiter = ':', $outerDelimiter = ',', $innerQuote = '') {
 	if (!is_array($indexedArray) || empty($indexedArray)) {
 		return null;
 	}
