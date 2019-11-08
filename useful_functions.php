@@ -43,13 +43,13 @@ function convertUnformattedUkDateToIsoDate($date) {
 /**
  * Explode a string into an indexed array
  *
- * @param string $outerDelimiter The string separating each full pair from its neighbours
  * @param string $innerDelimiter The string separating each pair's key from its value
+ * @param string $outerDelimiter The string separating each full pair from its neighbours
  * @param string $string The string to be converted into an array
  * @return array The converted array
  */
 
-function explodeWithKey($outerDelimiter = ',', $innerDelimter = ':', $string) {
+function explodeWithKey($innerDelimter = ':', $outerDelimiter = ',', $string) {
 	$unindexedArray = explode($outerDelimiter, $string);
 	$indexedArray = array();
 
