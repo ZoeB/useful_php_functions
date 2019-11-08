@@ -49,7 +49,7 @@ function convertUnformattedUkDateToIsoDate($date) {
  * @return array The converted array
  */
 
-function explodeWithKey($innerDelimter = ':', $outerDelimiter = ',', $whole) {
+function explodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $whole) {
 	if (!is_string($whole) || empty($whole)) {
 		return null;
 	}
@@ -62,17 +62,18 @@ function explodeWithKey($innerDelimter = ':', $outerDelimiter = ',', $whole) {
 		/*
 		 * The first part of the pair is the key.  There should
 		 * only be one other part, the value.  However, some
-		 * data may use the $innerDelimter more than once within
-		 * the $outerDelimiter's data.  In such an instance, we
-		 * should assume that only the first instance of the
-		 * $innerDelimter is intended to separate the key from
-		 * the value, and the rest should be taken literally.
+		 * data may use the $innerDelimiter more than once
+		 * within the $outerDelimiter's data.  In such an
+		 * instance, we should assume that only the first
+		 * instance of the $innerDelimiter is intended to
+		 * separate the key from the value, and the rest should
+		 * be taken literally.
 		 */
 
-		$pair = explode($innerDelimter, $pair);
+		$pair = explode($innerDelimiter, $pair);
 		$key = $pair[0];
 		unset(pair[0]);
-		$value = implode($innerDelimter, $pair);
+		$value = implode($innerDelimiter, $pair);
 		$indexedArray[$key] = $value;
 	}
 
