@@ -82,27 +82,33 @@ function explodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $whole) {
 
 /**
  * Implode an indexed array into a string
+ *
+ * @param string $innerDelimiter The string separating each pair's key from its value
+ * @param string $outerDelimiter The string separating each full pair from its neighbours
+ * @param array $pairs The array to be converted into a string
+ * @param boolean $innerQuotes whether to wrap each value in double-quotes
+ * @return string The converted array
  */
 
-function implodeWithKey($innerDelimiter, $outerDelimiter, $pieces, $innerQuotes = false) {
-	if (!is_array($pieces) || empty($pieces)) {
+function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $pairs, $innerQuotes = false) {
+	if (!is_array($pairs) || empty($pairs)) {
 		return null;
 	}
 
-	$numberOfPieces = count($pieces);
+	$numberOfPairs = count($pairs);
 	$imploded = '';
 	$i = 0;
 
-	foreach ($pieces as $pieceKey => $pieceValue) {
+	foreach ($pairs as $pairKey => $pairValue) {
 		$i++;
 
 		if ($innerQuotes == true) {
-			$imploded .= $pieceKey.$innerDelimiter.'"'.$pieceValue.'"';
+			$imploded .= $pairKey.$innerDelimiter.'"'.$pairValue.'"';
 		} else {
-			$imploded .= $pieceKey.$innerDelimiter.$pieceValue;
+			$imploded .= $pairKey.$innerDelimiter.$pairValue;
 		}
 
-		if ($i != $numberOfPieces) {
+		if ($i != $numberOfPairs) {
 			$imploded .= $outerDelimiter;
 		}
 	}
