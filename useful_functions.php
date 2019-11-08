@@ -58,9 +58,21 @@ function explodeWithKey($innerDelimter = ':', $outerDelimiter = ',', $whole) {
 	$indexedArray = array();
 
 	foreach ($unindexedArray as $pair) {
+
+		/*
+		 * The first part of the pair is the key.  There should
+		 * only be one other part, the value.  However, some
+		 * data may use the $innerDelimter more than once within
+		 * the $outerDelimiter's data.  In such an instance, we
+		 * should assume that only the first instance of the
+		 * $innerDelimter is intended to separate the key from
+		 * the value, and the rest should be taken literally.
+		 */
+
 		$pair = explode($innerDelimter, $pair);
 		$key = $pair[0];
-		$value = $pair[1];
+		unset(pair[0]);
+		$value = implode($innerDelimter, $pair);
 		$indexedArray[$key] = $value;
 	}
 
