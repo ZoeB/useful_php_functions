@@ -95,20 +95,13 @@ function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $pairs, $i
 		return null;
 	}
 
-	$numberOfPairs = count($pairs);
-	$imploded = '';
-	$i = 0;
+	$implodable = array();
 
 	foreach ($pairs as $pairKey => $pairValue) {
-		$i++;
-		$imploded .= $pairKey.$innerDelimiter.$innerQuotes.$pairValue.$innerQuotes;
-
-		if ($i != $numberOfPairs) {
-			$imploded .= $outerDelimiter;
-		}
+		$implodable[] = $pairKey.$innerDelimiter.$innerQuotes.$pairValue.$innerQuotes;
 	}
 
-	return $imploded;
+	return implode($outerDelimiter, $implodable);
 }
 
 print_r(explodeWithKey(':', ',', 'Key 1:Value 1,Key 2:Value 2'));
