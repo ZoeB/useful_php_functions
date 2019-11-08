@@ -72,7 +72,7 @@ function explodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $whole) {
 
 		$pair = explode($innerDelimiter, $pair);
 		$key = $pair[0];
-		unset(pair[0]);
+		unset($pair[0]);
 		$value = implode($innerDelimiter, $pair);
 		$indexedArray[$key] = $value;
 	}
@@ -116,11 +116,11 @@ function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $pairs, $i
 	return $imploded;
 }
 
-print_r(explodeWithKey('Key 1:Value 1,Key 2:Value 2'));
+print_r(explodeWithKey(':', ',', 'Key 1:Value 1,Key 2:Value 2'));
 
-print_r(implodeWithKey(
+print_r(implodeWithKey(':', ',', array(
 	'Key 1' => 'Value 1',
 	'Key 2' => 'Value 2'
-));
+)));
 
 ?>
