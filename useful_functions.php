@@ -41,27 +41,26 @@ function convertUnformattedUkDateToIsoDate($date) {
 }
 
 /**
- * Explode a string into an array, with keys
+ * Explode a string into an indexed array
+ *
+ * @param string $outerDelimiter The string separating each full pair from its neighbours
+ * @param string $innerDelimiter The string separating each pair's key from its value
+ * @param string $string The string to be converted into an array
+ * @return array The converted array
  */
 
-function kexplode($innerGlue, $outerGlue, $whole) {
-	if (!is_string($whole) || empty($whole)) {
-		return null;
+function explodeWithKey($outerDelimiter = ',', $innerDelimter = ':', $string) {
+	$unindexedArray = explode($outerDelimiter, $string);
+	$indexedArray = array();
+
+	foreach ($unindexedArray as $pair) {
+		$pair = explode($innerDelimter, $pair);
+		$key = $pair[0];
+		$value = $pair[1];
+		$indexedArray[$key] = $value;
 	}
 
-	$rawPieces = explode($outerGlue, $whole);
-	$pieces = array();
-
-	foreach ($rawPieces as $rawPiece) {
-		// The first part of the piece is the key.  There should only be one other part, the value.  However, some data may be technically incorrect, using the innerGlue more than once within the outerGlue.  Obviously, in such an instance, we should assume that only the first instance of the innerGlue is intended to separate the key from the value, and the rest should be taken literally.
-		$subPieces = explode($innerGlue, $rawPiece);
-		$key = $subPieces[0];
-		unset($subPieces[0]);
-		$value = implode($innerGlue, $subPieces);
-		$pieces[$key] = $value;
-	}
-
-	return $pieces;
+	return $indexedArray;
 }
 
 /**
