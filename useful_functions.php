@@ -85,23 +85,23 @@ function explodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $whole) {
  *
  * @param string $innerDelimiter The string separating each pair's key from its value
  * @param string $outerDelimiter The string separating each full pair from its neighbours
- * @param array $pairs The array to be converted into a string
- * @param string $innerQuotes What, if anything, to wrap around each value
+ * @param array $indexedArray The array to be converted into a string
+ * @param string $innerQuote What, if anything, to wrap around each value
  * @return string The converted array
  */
 
-function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $pairs, $innerQuotes = '') {
-	if (!is_array($pairs) || empty($pairs)) {
+function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $indexedArray, $innerQuote = '') {
+	if (!is_array($indexedArray) || empty($indexedArray)) {
 		return null;
 	}
 
-	$implodable = array();
+	$unindexedArray = array();
 
-	foreach ($pairs as $pairKey => $pairValue) {
-		$implodable[] = $pairKey.$innerDelimiter.$innerQuotes.$pairValue.$innerQuotes;
+	foreach ($indexedArray as $key => $value) {
+		$unindexedArray[] = $key.$innerDelimiter.$innerQuote.$value.$innerQuote;
 	}
 
-	return implode($outerDelimiter, $implodable);
+	return implode($outerDelimiter, $unindexedArray);
 }
 
 print_r(explodeWithKey(':', ',', 'Key 1:Value 1,Key 2:Value 2'));
