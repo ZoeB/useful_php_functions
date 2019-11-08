@@ -104,11 +104,4 @@ function implodeWithKey($indexedArray, $innerDelimiter = ':', $outerDelimiter = 
 	return implode($outerDelimiter, $unindexedArray);
 }
 
-print_r(explodeWithKey(':', ',', 'Key 1:Value 1,Key 2:Value 2'));
-
-print_r(implodeWithKey(':', ',', array(
-	'Key 1' => 'Value 1',
-	'Key 2' => 'Value 2'
-), "'"));
-
 ?>
