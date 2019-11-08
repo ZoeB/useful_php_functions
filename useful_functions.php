@@ -40,4 +40,58 @@ function convertUnformattedUkDateToIsoDate($date) {
 	return null;
 }
 
+/**
+ * Explode a string into an array, with keys
+ */
+
+function kexplode($innerGlue, $outerGlue, $whole) {
+	if (!is_string($whole) || empty($whole)) {
+		return null;
+	}
+
+	$rawPieces = explode($outerGlue, $whole);
+	$pieces = array();
+
+	foreach ($rawPieces as $rawPiece) {
+		// The first part of the piece is the key.  There should only be one other part, the value.  However, some data may be technically incorrect, using the innerGlue more than once within the outerGlue.  Obviously, in such an instance, we should assume that only the first instance of the innerGlue is intended to separate the key from the value, and the rest should be taken literally.
+		$subPieces = explode($innerGlue, $rawPiece);
+		$key = $subPieces[0];
+		unset($subPieces[0]);
+		$value = implode($innerGlue, $subPieces);
+		$pieces[$key] = $value;
+	}
+
+	return $pieces;
+}
+
+/**
+ * Implode an array into a string, with keys
+ */
+
+function kimplode($innerGlue, $outerGlue, $pieces, $innerQuotes = false) {
+	if (!is_array($pieces) || empty($pieces)) {
+		return null;
+	}
+
+	$numberOfPieces = count($pieces);
+	$imploded = '';
+	$i = 0;
+
+	foreach ($pieces as $pieceKey => $pieceValue) {
+		$i++;
+
+		if ($innerQuotes == true) {
+			$imploded .= $pieceKey.$innerGlue.'"'.$pieceValue.'"';
+		} else {
+			$imploded .= $pieceKey.$innerGlue.$pieceValue;
+		}
+
+		if ($i != $numberOfPieces) {
+			$imploded .= $outerGlue;
+		}
+	}
+
+	return $imploded;
+}
+
 ?>
