@@ -40,4 +40,68 @@ function convertUnformattedUkDateToIsoDate($date) {
 	return null;
 }
 
+/**
+ * Explode a string into an indexed array
+ *
+ * @param string $whole The string to be converted into an array
+ * @param string $innerDelimiter The string separating each pair's key from its value
+ * @param string $outerDelimiter The string separating each full pair from its neighbours
+ * @return array The converted array
+ */
+
+function explodeWithKey($whole, $innerDelimiter = ':', $outerDelimiter = ',') {
+	if (!is_string($whole) || empty($whole)) {
+		return null;
+	}
+
+	$unindexedArray = explode($outerDelimiter, $whole);
+	$indexedArray = array();
+
+	foreach ($unindexedArray as $pair) {
+
+		/*
+		 * The first part of the pair is the key.  There should
+		 * only be one other part, the value.  However, some
+		 * data may use the $innerDelimiter more than once
+		 * within the $outerDelimiter's data.  In such an
+		 * instance, we should assume that only the first
+		 * instance of the $innerDelimiter is intended to
+		 * separate the key from the value, and the rest should
+		 * be taken literally.
+		 */
+
+		$pair = explode($innerDelimiter, $pair);
+		$key = $pair[0];
+		unset($pair[0]);
+		$value = implode($innerDelimiter, $pair);
+		$indexedArray[$key] = $value;
+	}
+
+	return $indexedArray;
+}
+
+/**
+ * Implode an indexed array into a string
+ *
+ * @param array $indexedArray The array to be converted into a string
+ * @param string $innerDelimiter The string separating each pair's key from its value
+ * @param string $outerDelimiter The string separating each full pair from its neighbours
+ * @param string $innerQuote What, if anything, to wrap around each value
+ * @return string The converted array
+ */
+
+function implodeWithKey($indexedArray, $innerDelimiter = ':', $outerDelimiter = ',', $innerQuote = '') {
+	if (!is_array($indexedArray) || empty($indexedArray)) {
+		return null;
+	}
+
+	$unindexedArray = array();
+
+	foreach ($indexedArray as $key => $value) {
+		$unindexedArray[] = $key.$innerDelimiter.$innerQuote.$value.$innerQuote;
+	}
+
+	return implode($outerDelimiter, $unindexedArray);
+}
+
 ?>
