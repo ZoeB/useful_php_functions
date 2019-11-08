@@ -81,10 +81,10 @@ function explodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $whole) {
 }
 
 /**
- * Implode an array into a string, with keys
+ * Implode an indexed array into a string
  */
 
-function kimplode($innerGlue, $outerGlue, $pieces, $innerQuotes = false) {
+function implodeWithKey($innerDelimiter, $outerDelimiter, $pieces, $innerQuotes = false) {
 	if (!is_array($pieces) || empty($pieces)) {
 		return null;
 	}
@@ -97,13 +97,13 @@ function kimplode($innerGlue, $outerGlue, $pieces, $innerQuotes = false) {
 		$i++;
 
 		if ($innerQuotes == true) {
-			$imploded .= $pieceKey.$innerGlue.'"'.$pieceValue.'"';
+			$imploded .= $pieceKey.$innerDelimiter.'"'.$pieceValue.'"';
 		} else {
-			$imploded .= $pieceKey.$innerGlue.$pieceValue;
+			$imploded .= $pieceKey.$innerDelimiter.$pieceValue;
 		}
 
 		if ($i != $numberOfPieces) {
-			$imploded .= $outerGlue;
+			$imploded .= $outerDelimiter;
 		}
 	}
 
