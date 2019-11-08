@@ -86,11 +86,11 @@ function explodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $whole) {
  * @param string $innerDelimiter The string separating each pair's key from its value
  * @param string $outerDelimiter The string separating each full pair from its neighbours
  * @param array $pairs The array to be converted into a string
- * @param boolean $innerQuotes whether to wrap each value in double-quotes
+ * @param string $innerQuotes What, if anything, to wrap around each value
  * @return string The converted array
  */
 
-function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $pairs, $innerQuotes = false) {
+function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $pairs, $innerQuotes = '') {
 	if (!is_array($pairs) || empty($pairs)) {
 		return null;
 	}
@@ -101,12 +101,7 @@ function implodeWithKey($innerDelimiter = ':', $outerDelimiter = ',', $pairs, $i
 
 	foreach ($pairs as $pairKey => $pairValue) {
 		$i++;
-
-		if ($innerQuotes == true) {
-			$imploded .= $pairKey.$innerDelimiter.'"'.$pairValue.'"';
-		} else {
-			$imploded .= $pairKey.$innerDelimiter.$pairValue;
-		}
+		$imploded .= $pairKey.$innerDelimiter.$innerQuotes.$pairValue.$innerQuotes;
 
 		if ($i != $numberOfPairs) {
 			$imploded .= $outerDelimiter;
@@ -121,6 +116,6 @@ print_r(explodeWithKey(':', ',', 'Key 1:Value 1,Key 2:Value 2'));
 print_r(implodeWithKey(':', ',', array(
 	'Key 1' => 'Value 1',
 	'Key 2' => 'Value 2'
-)));
+), "'"));
 
 ?>
