@@ -117,11 +117,7 @@ function isAllEmpty($data = array()) {
 	}
 
 	foreach ($data as $value) {
-		if (is_array($value)) {
-			if (!isAllEmpty($value)) {
-				return false;
-			}
-		} elseif (!empty($value)) {
+		if (!isAllEmpty($value)) {
 			return false;
 		}
 	}
