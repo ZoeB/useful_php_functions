@@ -104,4 +104,29 @@ function implodeWithKey($indexedArray, $innerDelimiter = ':', $outerDelimiter = 
 	return implode($outerDelimiter, $unindexedArray);
 }
 
+/**
+ * Verify whether a variable is empty or not, recursively examining the whole array if it is an array
+ *
+ * @param mixed $data The variable to verify the emptiness of
+ * @return boolean Whether the variable is empty
+ */
+
+function isAllEmpty($data = array()) {
+	if (!is_array($data)) {
+		return empty($data);
+	}
+
+	foreach ($data as $value) {
+		if (is_array($value)) {
+			if (!isAllEmpty($value)) {
+				return false;
+			}
+		} elseif (!empty($value)) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 ?>
